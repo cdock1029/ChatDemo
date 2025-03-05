@@ -18,10 +18,15 @@
     <ItemGroup>
         <PackageReference Include="DevExpress.AIIntegration.Blazor" />
         <PackageReference Include="DevExpress.AIIntegration.Desktop" /> 
+        <PackageReference Include="DevExpress.AIIntegration.OpenAI" /> 
         <PackageReference Include="DevExpress.Blazor" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" />
         <PackageReference Include="Microsoft.Extensions.Hosting" />
         <PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" />
+        <PackageReference Include="Microsoft.Extensions.AI" />
+        <PackageReference Include="Microsoft.Extensions.AI.Abstractions" />
+        <PackageReference Include="Microsoft.Extensions.AI.OpenAI" />
     </ItemGroup>
 
     <ItemGroup>

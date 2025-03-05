@@ -1,3 +1,4 @@
+using System.ClientModel;
 using System.Diagnostics;
 using ChatDemo.Data;
 using DevExpress.AIIntegration;
@@ -6,8 +7,7 @@ using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.ChatCompletion;
+using OpenAI;
 
 namespace ChatDemo;
 
@@ -35,10 +35,18 @@ public static class Startup
 
         ChatConfig? chatConfig = ctx.Configuration.GetSection("ChatConfig").Get<ChatConfig>();
 
-        Kernel kernel = Kernel.CreateBuilder()
-            .AddOpenAIChatCompletion(apiKey: chatConfig!.OpenAiApiKey, modelId: "gpt-4o-mini").Build();
 
-        IChatClient client = kernel.GetRequiredService<IChatCompletionService>().AsChatClient();
+        /* this works */
+        IChatClient client =
+	        new OpenAIClient(new ApiKeyCredential(chatConfig!.OpenAiApiKey)).AsChatClient("gpt-4o-mini");
+
+
+        /* this does not work */
+
+        //Kernel kernel = Kernel.CreateBuilder()
+        //    .AddOpenAIChatCompletion(apiKey: chatConfig!.OpenAiApiKey, modelId: "gpt-4o-mini").Build();
+
+        //IChatClient client = kernel.GetRequiredService<IChatCompletionService>().AsChatClient();
 
         services.AddSingleton(client);
         services.AddDevExpressAI(settings => settings.RegisterAIExceptionHandler(new ChatExceptionHandler()));
